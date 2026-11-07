@@ -1,22 +1,50 @@
-# QuickNotes API Design Document
+# QuickNotes API Design Specification
 
-## REST Endpoints
-| Method | Path | Description | Success Status |
-| :--- | :--- | :--- | :--- |
-| GET | `/api/v1/notes` | Retrieve all notes for authenticated user | 200 OK |
-| POST | `/api/v1/notes` | Create a new note | 201 Created |
-| GET | `/api/v1/notes/{id}` | Retrieve a specific note by ID | 200 OK |
-| PUT | `/api/v1/notes/{id}` | Fully update an existing note | 200 OK |
-| DELETE | `/api/v1/notes/{id}` | Delete a note | 204 No Content |
-| GET | `/api/v1/tags` | List all user tags | 200 OK |
+## 1. Endpoints Overview
 
-## JSON Examples
-
-### Creating a Note (`POST /api/v1/notes`)
-**Request Body:**
+### Get All Notes
+- **Endpoint:** `GET /api/notes`
+- **Description:** Retrieves a paginated list of all notes for the authenticated user.
+- **Success Response (200 OK):**
 ```json
 {
-  "title": "Weekly Planning",
-  "body": "Finish system design assignments and review deployment scripts.",
-  "tag_ids": [2, 4]
+  "status": "success",
+  "results": 2,
+  "data": {
+    "notes": [
+      {
+        "id": "note_9f8e7d6c5b4a",
+        "title": "Project Roadmap",
+        "content": "Outline Q3 deliverables and milestone dates.",
+        "createdAt": "2026-11-07T10:30:00Z"
+      },
+      {
+        "id": "note_1a2b3c4d5e6f",
+        "title": "Grocery List",
+        "content": "Milk, eggs, coffee beans, whole grain bread.",
+        "createdAt": "2026-11-07T11:00:00Z"
+      }
+    ]
+  }
+}
+{
+  "title": "Weekly Sprint Goals",
+  "content": "Complete user authentication module and database migration."
+}
+{
+  "status": "success",
+  "data": {
+    "note": {
+      "id": "note_7a8b9c0d1e2f",
+      "title": "Weekly Sprint Goals",
+      "content": "Complete user authentication module and database migration.",
+      "createdAt": "2026-11-07T12:15:00Z",
+      "updatedAt": "2026-11-07T12:15:00Z"
+    }
+  }
+}
+{
+  "status": "error",
+  "code": 400,
+  "message": "Invalid request payload provided."
 }
